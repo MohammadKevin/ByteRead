@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "user-demo-01",
+      "name": "Alex Reader",
+      "username": "@alex_reads",
+      "email": "alex@byteread.app",
+      "password": "$2b$10$noLAXhY7BoDKzVjenG3O8.PRAwqmUxXC/E7Ne72MoDDT1a5jbewre",
+      "avatarSeed": 42,
+      "level": 3,
+      "levelTitle": "Level 3: Byte Synthesizer ⚡",
+      "xp": 380,
+      "xpToNextLevel": 650,
+      "streak": {
+        "currentStreak": 3,
+        "longestStreak": 5,
+        "lastReadDate": "2026-08-27",
+        "streakHistory": [
+          {
+            "date": "2026-08-27",
+            "booksCompleted": 1,
+            "xpEarned": 120
+          }
+        ],
+        "isFreezeActive": false,
+        "freezeCountAvailable": 1
+      },
+      "completedBookIds": [
+        "book-atomic-habits"
+      ],
+      "inProgressBookIds": [
+        "book-psychology-of-money"
+      ],
+      "bookmarkedBookIds": [
+        "book-deep-work",
+        "book-show-your-work"
+      ],
+      "savedQuotes": [
+        {
+          "id": "quote-sample-1",
+          "bookId": "book-atomic-habits",
+          "bookTitle": "Atomic Habits",
+          "author": "James Clear",
+          "quote": "You do not rise to the level of your goals. You fall to the level of your systems.",
+          "themeStyle": "FRESH_BLUE",
+          "savedAt": "Hari ini"
+        }
+      ],
+      "totalMinutesRead": 9,
+      "totalHoursSaved": 6.5,
+      "quizAccuracyAverage": 90,
+      "createdAt": "2026-08-27T07:48:17.566Z"
+    }
+  ]
+}

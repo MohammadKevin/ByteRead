@@ -1,0 +1,275 @@
+// Prisma Schema for ByteRead Micro-Learning Platform
+// MySQL Database configuration (Compatible with Laragon / XAMPP / MySQL 8.0)
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../server/db/generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum MoodCategory {
+  BURNOUT
+  FINANCE
+  HABIT
+  OVERTHINKING
+  CREATIVE
+  TECH_CAREER
+  MINDFUL
+}
+
+enum ReadDuration {
+  DURATION_2_MIN
+  DURATION_3_MIN
+  DURATION_5_MIN
+}
+
+enum BookCategory {
+  SELF_IMPROVEMENT
+  PSYCHOLOGY
+  FINANCE
+  PRODUCTIVITY
+  CREATIVITY
+  TECH_CRAFTSMANSHIP
+}
+
+enum ReadingProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum BadgeCategory {
+  STREAK
+  MASTERY
+  SPEED
+  COMMUNITY
+  EXPLORER
+}
+
+enum QuoteThemeStyle {
+  FRESH_BLUE
+  MINT_CLEAN
+  CYBER_CYAN
+  OBSIDIAN_MINIMAL
+  WARM_SLATE
+}
+
+model User {
+  id                    String            @id @default(uuid())
+  email                 String            @unique @db.VarChar(191)
+  username              String            @unique @db.VarChar(191)
+  name                  String            @db.VarChar(191)
+  password              String            @db.VarChar(255)
+  avatarUrl             String?           @db.VarChar(255)
+  avatarSeed            Int               @default(1)
+  
+  // Gamification & Leveling
+  xp                    Int               @default(0)
+  level                 Int               @default(1)
+  levelTitle            String            @default("Level 1: Page Novice 📖") @db.VarChar(191)
+  totalMinutesRead      Int               @default(0)
+  totalHoursSaved       Float             @default(0.0)
+  quizAccuracyAverage   Float             @default(0.0)
+  
+  // Daily Streak Engine
+  currentStreak         Int               @default(0)
+  longestStreak         Int               @default(0)
+  lastReadDate          String?           @db.VarChar(50)
+  streakFreezesAvailable Int              @default(1)
+  isFreezeActive        Boolean           @default(false)
+
+  // Relations
+  progressList          UserBookProgress[]
+  streakLogs            StreakLog[]
+  unlockedBadges        UserBadge[]
+  savedQuotes           SavedQuoteSnapshot[]
+  bookmarks             BookBookmark[]
+
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@index([xp])
+  @@index([currentStreak])
+  @@map("users")
+}
+
+model Book {
+  id                    String            @id @default(uuid())
+  slug                  String            @unique @db.VarChar(191)
+  title                 String            @db.VarChar(191)
+  originalTitle         String            @db.VarChar(191)
+  author                String            @db.VarChar(191)
+  authorBio             String            @db.Text
+  coverImage            String            @db.VarChar(500)
+  rating                Float             @default(4.8)
+  ratingsCount          String            @default("100K+ Goodreads") @db.VarChar(100)
+  category              BookCategory
+  moodTags              Json              // Array of MoodCategory in JSON
+  readDuration          ReadDuration      @default(DURATION_3_MIN)
+  estimatedMinutes      Int               @default(3)
+  baseXp                Int               @default(120)
+  timeSavedHours        Float             @default(5.0)
+  oneSentenceSummary    String            @db.Text
+  actionableStep        String            @db.Text
+  quickTakeaways        Json              // Array of 3 quick bullet points
+  
+  // Strict Citation & Verification (Non-Negotiable)
+  publisher             String            @db.VarChar(191)
+  publisherUrl          String            @db.VarChar(500)
+  goodreadsUrl          String?           @db.VarChar(500)
+  verifiedIsbn10        String?           @db.VarChar(50)
+  verifiedIsbn13        String            @unique @db.VarChar(50)
+  originalPublishYear   Int
+  chapterReference      String            @db.VarChar(255)
+  citationApa           String            @db.Text
+  isVerified            Boolean           @default(true)
+
+  // Content Relations
+  slides                BookSlide[]
+  quizQuestions         MicroQuizQuestion[]
+  userProgress          UserBookProgress[]
+  bookmarks             BookBookmark[]
+  savedQuotes           SavedQuoteSnapshot[]
+
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@index([category])
+  @@index([verifiedIsbn13])
+  @@map("books")
+}
+
+model BookSlide {
+  id                    Int               @id @default(autoincrement())
+  bookId                String            @db.VarChar(191)
+  book                  Book              @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  slideNumber           Int
+  chapterTitle          String            @db.VarChar(191)
+  hookHeadline          String            @db.VarChar(255) // Punchy Gen-Z hook
+  biteContent           String            @db.Text         // Padat < 60 kata
+  bulletTakeaways       Json              // Array string
+  realWorldAnalogy      String            @db.Text         // Analogi nyata
+  quotableSentence      String            @db.Text         // Kutipan asli buku
+  estimatedReadSec      Int               @default(45)
+
+  createdAt             DateTime          @default(now())
+
+  @@unique([bookId, slideNumber])
+  @@map("book_slides")
+}
+
+model MicroQuizQuestion {
+  id                    Int               @id @default(autoincrement())
+  bookId                String            @db.VarChar(191)
+  book                  Book              @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  question              String            @db.Text
+  options               Json              // 4 opsi pilihan ganda array JSON
+  correctAnswerIndex    Int               // 0-3
+  explanation           String            @db.Text
+  chapterSourceRef      String            @db.VarChar(255) // Sitasi bab buku asli
+  xpReward              Int               @default(40)
+
+  createdAt             DateTime          @default(now())
+
+  @@map("micro_quiz_questions")
+}
+
+model UserBookProgress {
+  id                    String                @id @default(uuid())
+  userId                String                @db.VarChar(191)
+  bookId                String                @db.VarChar(191)
+  user                  User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book                  Book                  @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  
+  status                ReadingProgressStatus @default(IN_PROGRESS)
+  currentSlideIndex     Int                   @default(0)
+  totalSecondsRead      Int                   @default(0)
+  isQuizPassed          Boolean               @default(false)
+  quizScore             Int                   @default(0)
+  xpEarned              Int                   @default(0)
+  
+  startedAt             DateTime              @default(now())
+  completedAt           DateTime?
+  lastReadAt            DateTime              @default(now())
+
+  @@unique([userId, bookId])
+  @@index([userId, status])
+  @@map("user_book_progress")
+}
+
+model StreakLog {
+  id                    String            @id @default(uuid())
+  userId                String            @db.VarChar(191)
+  user                  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activityDate          String            @db.VarChar(50) // YYYY-MM-DD
+  booksCompletedCount   Int               @default(1)
+  xpEarnedToday         Int               @default(0)
+  streakLengthOnDay     Int
+  wasProtectedByFreeze  Boolean           @default(false)
+
+  createdAt             DateTime          @default(now())
+
+  @@unique([userId, activityDate])
+  @@map("streak_logs")
+}
+
+model SavedQuoteSnapshot {
+  id                    String            @id @default(uuid())
+  userId                String            @db.VarChar(191)
+  bookId                String            @db.VarChar(191)
+  user                  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book                  Book              @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  
+  quote                 String            @db.Text
+  author                String            @db.VarChar(191)
+  bookTitle             String            @db.VarChar(191)
+  themeStyle            QuoteThemeStyle   @default(FRESH_BLUE)
+  savedAt               String            @default("Hari ini") @db.VarChar(100)
+
+  createdAt             DateTime          @default(now())
+
+  @@index([userId])
+  @@map("saved_quote_snapshots")
+}
+
+model BookBookmark {
+  id                    String            @id @default(uuid())
+  userId                String            @db.VarChar(191)
+  bookId                String            @db.VarChar(191)
+  user                  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book                  Book              @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  createdAt             DateTime          @default(now())
+
+  @@unique([userId, bookId])
+  @@map("book_bookmarks")
+}
+
+model Badge {
+  id                    String            @id @db.VarChar(191)
+  title                 String            @db.VarChar(191)
+  icon                  String            @db.VarChar(50)
+  description           String            @db.VarChar(255)
+  category              BadgeCategory
+  targetCount           Int               @default(1)
+
+  userBadges            UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id                    String            @id @default(uuid())
+  userId                String            @db.VarChar(191)
+  badgeId               String            @db.VarChar(191)
+  user                  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge                 Badge             @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  
+  unlockedAt            DateTime          @default(now())
+
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
