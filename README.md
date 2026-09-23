@@ -18,10 +18,10 @@ A fast, responsive web application designed for avid readers to explore books, m
 ---
 
 ## ✨ Key Features
-- ⚡ **Curated digital book catalog with search and category filtering**: Curated digital book catalog with search and category filtering
-- ⚡ **Personal reading tracker (To Read, In Progress, Completed)**: Personal reading tracker (To Read, In Progress, Completed)
-- ⚡ **Interactive milestone celebrations with canvas particle effects**: Interactive milestone celebrations with canvas particle effects
-- ⚡ **User reviews, star ratings, and community reading notes**: User reviews, star ratings, and community reading notes
+- Curated digital book catalog with search and category filtering
+- Personal reading tracker (To Read, In Progress, Completed)
+- Interactive milestone celebrations with canvas particle effects
+- User reviews, star ratings, and community reading notes
 
 ---
 
