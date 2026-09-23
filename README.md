@@ -1,66 +1,78 @@
-# ⚡ ByteRead - Micro-Learning & Non-Fiction Book Summaries
+<div align="center">
 
-> **Solusi cerdas menyerap intisari buku non-fiksi dalam 3 menit.** Dilengkapi sitasi ISBN terverifikasi, analogi konkret, evaluasi pemahaman cepat, dan sistem gamifikasi belajar interaktif.
+# ByteRead
 
----
+<p>Interactive Digital Reading & E-Book Management Platform</p>
 
-## 🌟 Fitur Utama
+![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=flat-square) ![Vite](https://img.shields.io/badge/Vite-blue?style=flat-square) ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-blue?style=flat-square) ![Canvas Confetti](https://img.shields.io/badge/Canvas%20Confetti-blue?style=flat-square) ![REST API](https://img.shields.io/badge/REST%20API-blue?style=flat-square)
 
-- 📖 **Intisari 3 Menit**: Ringkasan padat dan actionable dari buku-buku best-seller dunia (Atomic Habits, The Psychology of Money, Deep Work, dll).
-- ⚡ **Mode Swipe 60 Detik**: Flashcard interaktif untuk menangkap ide utama dalam tempo cepat.
-- 🎯 **Gamifikasi & Leveling**: Dapatkan XP, streak harian harian, freeze streak, dan naik level reader.
-- 🎧 **Audio Fokus (Binaural Beats)**: Fitur audio fokus ambient untuk mendukung kenyamanan membaca.
-- 💬 **Quote Snapshot & Sharing**: Simpan kutipan inspiratif dan bagikan dengan tema visual elegan.
-- 🔐 **Autentikasi & Akun**: Register, Login, JWT auth, serta sinkronisasi progres baca ke server.
-- 🗄️ **Smart Hybrid Database**: Terintegrasi dengan MySQL & sistem fallback JSON database lokal otomatis.
+</div>
 
 ---
 
-## 🚀 Tech Stack
-
-- **Frontend**: React 19, TypeScript, Tailwind CSS v4, Lucide React, Framer Motion, Vite
-- **Backend**: Node.js, Express.js, JWT, bcryptjs, mysql2
-- **Database**: MySQL (Host DomaiNesia / Local) dengan Automatic Local JSON Storage Fallback
+## 📌 Overview
+A fast, responsive web application designed for avid readers to explore books, manage reading wishlists, write book reviews, and track reading progress with pleasant visual animations.
 
 ---
 
-## 📦 Panduan Instalasi & Menjalankan
+## ✨ Key Features
+- ⚡ **Curated digital book catalog with search and category filtering**: Curated digital book catalog with search and category filtering
+- ⚡ **Personal reading tracker (To Read, In Progress, Completed)**: Personal reading tracker (To Read, In Progress, Completed)
+- ⚡ **Interactive milestone celebrations with canvas particle effects**: Interactive milestone celebrations with canvas particle effects
+- ⚡ **User reviews, star ratings, and community reading notes**: User reviews, star ratings, and community reading notes
 
-### 1. Clone Repositori
+---
+
+## 🛠️ Tech Stack
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS, Canvas Confetti
+- **Backend**: Node.js, Express / REST API, JWT Auth
+- **Database**: PostgreSQL / SQLite
+
+---
+
+## 📁 Project Structure
+```text
+ByteRead/
+├── src/
+│   ├── components/     # UI Components (BookCard, Navbar, Modals)
+│   ├── pages/          # App views (Home, Library, Reader)
+│   └── services/       # API integration & state management
+└── public/             # Static assets
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have the required runtimes and tools installed on your machine:
+- Node.js (v18+ recommended) / Appropriate runtime
+- Git
+
+### Installation & Local Setup
 ```bash
 git clone https://github.com/MohammadKevin/ByteRead.git
 cd ByteRead
-```
-
-### 2. Install Dependensi
-```bash
 npm install
-```
-
-### 3. Konfigurasi Environment (`.env`)
-Salin file `.env.example` menjadi `.env`:
-```env
-PORT=5000
-JWT_SECRET="your_super_secret_jwt_key"
-
-# Database Configuration (MySQL / DomaiNesia)
-DB_HOST="localhost"
-DB_PORT=3306
-DB_USER="root"
-DB_PASSWORD=""
-DB_NAME="budayaki_byteread"
-```
-
-### 4. Jalankan Aplikasi
-Jalankan frontend dan backend secara bersamaan:
-```bash
 npm run dev
 ```
 
-- **Frontend**: `http://localhost:3000`
-- **Backend API**: `http://localhost:5000`
+---
+
+## 👤 Author
+**Mohammad Kevin Arif Rudianto**
+- **GitHub:** [@MohammadKevin](https://github.com/MohammadKevin)
+- **Portfolio:** [portfolio-mohammadkevin.vercel.app](https://portfolio-mohammadkevin.vercel.app)
+- **LinkedIn:** [Mohammad Kevin](https://www.linkedin.com/in/mohammad-kevin-arif-rudianto-945733347)
+- **Email:** [kvn4.200581@gmail.com](mailto:kvn4.200581@gmail.com)
 
 ---
 
-## 📝 Lisensi
-Dibuat untuk keperluan tugas & riset pengembangan web interaktif modern.
+## 📄 License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+<div align="center">
+⭐️ If you found this repository useful, please consider giving it a star!
+</div>
