@@ -12,12 +12,12 @@
 
 ---
 
-## 📌 Overview
+## Overview
 A fast, responsive web application designed for avid readers to explore books, manage reading wishlists, write book reviews, and track reading progress with pleasant visual animations.
 
 ---
 
-## ✨ Key Features
+## Key Features
 - Curated digital book catalog with search and category filtering
 - Personal reading tracker (To Read, In Progress, Completed)
 - Interactive milestone celebrations with canvas particle effects
@@ -25,14 +25,14 @@ A fast, responsive web application designed for avid readers to explore books, m
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Frontend**: React, TypeScript, Vite, Tailwind CSS, Canvas Confetti
 - **Backend**: Node.js, Express / REST API, JWT Auth
 - **Database**: PostgreSQL / SQLite
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```text
 ByteRead/
 ├── src/
@@ -44,7 +44,7 @@ ByteRead/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 Make sure you have the required runtimes and tools installed on your machine:
@@ -61,7 +61,7 @@ npm run dev
 
 ---
 
-## 👤 Author
+## Author
 **Mohammad Kevin Arif Rudianto**
 - **GitHub:** [@MohammadKevin](https://github.com/MohammadKevin)
 - **Portfolio:** [portfolio-mohammadkevin.vercel.app](https://portfolio-mohammadkevin.vercel.app)
@@ -70,9 +70,9 @@ npm run dev
 
 ---
 
-## 📄 License
+## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 <div align="center">
-⭐️ If you found this repository useful, please consider giving it a star!
+If you found this repository useful, please consider giving it a star!
 </div>
